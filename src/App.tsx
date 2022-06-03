@@ -9,15 +9,17 @@ import {
   QueryClientProvider,
 } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import Users from './Components/User';
+import User from './Components/User';
+import { Container } from '@mui/material';
 
 const queryClient = new QueryClient();
-
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Users/>
+      <Container>
+          <User/>
+      </Container>
       <ReactQueryDevtools/>
     </QueryClientProvider>
   );
