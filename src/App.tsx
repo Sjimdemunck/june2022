@@ -9,7 +9,8 @@ import {
   QueryClientProvider,
 } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import User from './Components/User';
+import User from './components/User';
+import Home from './pages/Home';
 import { Container } from '@mui/material';
 
 const queryClient = new QueryClient();
@@ -17,8 +18,9 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Container>
-          <User/>
+      <Container fixed>
+        <Home/>
+        <User/>
       </Container>
       <ReactQueryDevtools/>
     </QueryClientProvider>
