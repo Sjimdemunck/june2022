@@ -1,6 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import {
   useQuery,
   useMutation,
@@ -9,18 +6,23 @@ import {
   QueryClientProvider,
 } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import User from './components/User';
 import Home from './pages/Home';
+import Navbar from './components/Navbar';
 import { Container } from '@mui/material';
+import { Routes, Route, Link } from 'react-router-dom';
+import Login from './pages/Login';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <Navbar/>
       <Container fixed>
-        <Home/>
-        <User/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
       </Container>
       <ReactQueryDevtools/>
     </QueryClientProvider>
