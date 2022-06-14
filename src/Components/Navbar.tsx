@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../providers/UserProvider";
 
 
 const Nav = styled.nav`
@@ -45,6 +47,9 @@ const NavButtonLink = styled(Link)`
 `
 
 const Navbar = () => {
+    const { user } = useContext(UserContext);
+    const emptyUser = Object.values(user) === Object.values(user).filter(value => value === '');
+
     return (
             <Nav>
                 <NavLink to="/">
@@ -53,11 +58,18 @@ const Navbar = () => {
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink>
+                { emptyUser ?
                 <NavButton>
                     <NavButtonLink to="/login">
-                    Log in
+                    Log out
                     </NavButtonLink>
                 </NavButton>
+                :  <NavButton>
+                <NavButtonLink to="/login">
+                Log in
+                </NavButtonLink>
+            </NavButton>
+            }
             </Nav>
     )
 }
