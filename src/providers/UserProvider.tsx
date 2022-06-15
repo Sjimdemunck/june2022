@@ -6,7 +6,9 @@ type UserContextState = {
     name: string,
     email: string,
     gender: string,
+    age: number,
     status: string,
+    authorized: boolean,
 }
 
 const UserContextDefaultValue = {
@@ -16,7 +18,9 @@ const UserContextDefaultValue = {
         name: '',
         email: '',
         gender: '',
+        age: 0,
         status: '',
+        authorized: false,
     },
     setUser: (user: UserContextState) => {}
 }

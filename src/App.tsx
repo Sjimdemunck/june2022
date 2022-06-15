@@ -9,6 +9,9 @@ import { Container } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import { UserProvider } from './providers/UserProvider';
+import Profile from './pages/Profile';
+import Signup from './pages/Signup';
+import { Contact } from './pages/Contact';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +25,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="profile" element={<Profile authorized={false} />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="contact" element={<Contact />} />
           </Routes>
       </UserProvider>
       </Container>

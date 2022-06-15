@@ -8,7 +8,6 @@ const Home = () => {
         <>
             <main>
                 <h2>Welcome {user ? user.username : ''}</h2>
-                <p>Hi</p>
             </main>
         </>
     )
