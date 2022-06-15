@@ -2,7 +2,12 @@ import { Grid } from "@mui/material";
 import { useContext } from "react";
 import User from "../components/User";
 import  UserContext from "../providers/UserProvider";
+import styled from '@emotion/styled';
+import { Title } from "./Login";
 
+export const H3 = styled.h3`
+    color: #1565c0;
+`
 
 const Profile = ( authorized: any) => {
     const { user } = useContext(UserContext);
@@ -13,9 +18,9 @@ const Profile = ( authorized: any) => {
 
     return (
         <>
-            <h2>Welcome to your profile page:  {user ? user.username : ''}</h2>
+            <Title>Welcome to your profile page  {user ? user.username : ''}</Title>
             <Grid container>
-                <h3>Other users (fetched from a random server):</h3>
+                <H3 >Other users</H3>
                 <User />
             </Grid>
         </>

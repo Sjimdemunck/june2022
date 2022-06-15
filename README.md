@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+Little project with login component and some images rendering. Need to do a more complext grocery list (WIP): add items to list: name, price, shop, and share it with your team/family.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

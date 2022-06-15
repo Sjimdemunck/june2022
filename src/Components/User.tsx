@@ -46,7 +46,7 @@ const User = () => {
     return (
         <Grid container spacing={2}>
             {data.map((user:IUser) => (
-                <Grid item xs={3} direction="column" key={user.name + user.email}>
+                <Grid item xs={3} container direction="column" key={user.name + user.email}>
                         <Item>
                             <SpanKey>Name: </SpanKey> <span>{user.name} </span>
                             <SpanKey>Email: </SpanKey>{user.email}

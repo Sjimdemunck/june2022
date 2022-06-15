@@ -50,12 +50,14 @@ const Navbar = () => {
     const { user } = useContext(UserContext);
     const emptyUser = Object.values(user) === Object.values(user).filter(value => value === '');
 
+    console.log(user);
     return (
             <Nav>
                 <NavLink to="/">
                     <h1>Logo</h1>
                 </NavLink>
                 <NavLink to="/">Home</NavLink>
+                 <NavLink to="/groceries">Groceries</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink>
                 { emptyUser ?

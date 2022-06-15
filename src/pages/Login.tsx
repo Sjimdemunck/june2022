@@ -17,29 +17,38 @@ interface IFormInputs {
     password: string,
 }
 
+export const Title = styled.h2`
+    color: #1565c0;
+`;
+
 export const LoginPaper = styled(Paper)`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 300px;
-        height: 300px;
-        margin: auto;
-        margin-top: 100px;
-        padding: 20px;
-        background-color: #f5f5f5;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+`;
+
+const IconWrapper = styled(Box)`
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+`;
+    
+const ButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
     `;
     
-    const ButtonWrapper = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 20px;
-        `;
-        
 const Login = () => {
     let navigate = useNavigate();
 
@@ -63,14 +72,14 @@ const Login = () => {
     return (
         <Grid container spacing={2}>
             <LoginPaper elevation={3}> 
-                <Box mb={7}>
+                <IconWrapper mb={3}>
                     <Avatar>
                         <LockIcon/>
                     </Avatar>
-                Sign in
-                </Box>
+                <Title>Sign in</Title>
+                </IconWrapper>
                 <Grid item>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={(onSubmit)}>
                     <TextField 
                         variant="outlined"
                         label='Username'
@@ -93,7 +102,7 @@ const Login = () => {
                         fullWidth required/>
                          {errors.password && "Fill in the password"}
                     <ButtonWrapper>
-                        <Box mb={5}>
+                        <Box mb={2} mt={2}>
                             <Button type="submit" variant='contained' fullWidth style={{marginBottom: "5px"}} >Log in</Button>
                             <Button href='#' variant='outlined' fullWidth>Register</Button>
                         </Box>

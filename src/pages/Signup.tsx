@@ -16,7 +16,7 @@ const SignupInput = styled(TextField)`
     margin-bottom: 10px;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
     margin-bottom: 10px;
     color: #1565c0;
 `;
@@ -67,7 +67,7 @@ const Signup = () => {
                             {...register('name', { required: true })}
                         />
                     </Grid>
-                        {errors.name && <p>Last name is required.</p>}
+                        {errors.name && <p>Name is required.</p>}
                     <Grid item xs={12}>
                     <SignupInput
                         variant="outlined"
