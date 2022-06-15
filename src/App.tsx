@@ -12,6 +12,7 @@ import { UserProvider } from './providers/UserProvider';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import { Contact } from './pages/Contact';
+import { Groceries } from './pages/Groceries';
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="profile" element={<Profile authorized={false} />} />
             <Route path="signup" element={<Signup />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="groceries" element={<Groceries authorized={false} />} />
           </Routes>
       </UserProvider>
       </Container>

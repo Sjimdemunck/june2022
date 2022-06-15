@@ -6,7 +6,16 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../providers/UserProvider";
 import { LoginPaper } from "./Login";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
+interface ISignupInputProps {
+    name: string,
+    email: string,
+    password: string,
+    gender: string,
+    age: number
+}
 
 const SignupPaper = styled(LoginPaper)`
     height: unset;
@@ -26,6 +35,16 @@ const SignupButton = styled(Button)`
     margin-bottom: 10px;
 `;
 
+// customize error message in required().
+const schema = yup
+  .object()
+  .shape({
+    name: yup.string().required(),
+    password: yup.string().required(),
+    email: yup.string().min(4).max(16).matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).required(),
+    gender: yup.string().min(4).max(6).required(),
+    age: yup.number().min(18).max(110).required(),
+  })
 
 const Signup = () => {
     let navigate = useNavigate();
@@ -33,7 +52,9 @@ const Signup = () => {
         register,
         handleSubmit,
         formState: { errors },
-        } = useForm();
+        } = useForm<ISignupInputProps>({
+            resolver: yupResolver(schema),
+        });
 
     const onSubmit = (data: any) =>  {
         navigate("/login");
@@ -63,36 +84,48 @@ const Signup = () => {
                             variant="outlined"
                             label='name'
                             autoFocus
-                            placeholder='name'
-                            {...register('name', { required: true })}
+                            placeholder='Name'
+                            helperText={errors?.name?.message}
+                            {...register('name',)}
                         />
                     </Grid>
-                        {errors.name && <p>Name is required.</p>}
                     <Grid item xs={12}>
-                    <SignupInput
-                        variant="outlined"
-                        label='email'
-                        placeholder='E-mail' {...register('email', { required: true, pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                            message: "invalid email address"
-                        }})} 
-                    />
+                        <SignupInput
+                            variant="outlined"
+                            label="password"
+                            type="password"
+                            autoFocus
+                            placeholder='Password'
+                            helperText={errors?.password?.message}
+                            {...register('password')}
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                    <SignupInput
-                        variant="outlined"
-                        type="select"
-                        label='gender'
-                        placeholder='Gender' {...register('gender', {required: true })}>
-                    </SignupInput>
+                        <SignupInput
+                            variant="outlined"
+                            label='email'
+                            helperText={errors?.email?.message}
+                            placeholder='E-mail' 
+                            {...register('email')} 
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <SignupInput
+                            variant="outlined"
+                            type="select"
+                            label='gender'
+                            placeholder='Gender'
+                            helperText={errors?.gender?.message}
+                            {...register('gender')}>
+                        </SignupInput>
                     </Grid>
                     <Grid item xs={12}>
                         <SignupInput
                             variant="outlined"
                             label='age' 
                             placeholder='age'
-                            {...register('age', { pattern: /\d+/, min: 18, max: 69 })} />
-                            {errors.age && <p>Please enter number for age.</p>}
+                            helperText={errors?.age?.message}
+                            {...register('age')} />
                     </Grid>
                     <Grid item xs={12}>
                     <Box 

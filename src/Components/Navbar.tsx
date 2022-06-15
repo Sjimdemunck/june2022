@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../providers/UserProvider";
-
 
 const Nav = styled.nav`
     display: flex;
@@ -47,25 +47,37 @@ const NavButtonLink = styled(Link)`
 `
 
 const Navbar = () => {
-    const { user } = useContext(UserContext);
-    const emptyUser = Object.values(user) === Object.values(user).filter(value => value === '');
+    const { user, setUser } = useContext(UserContext);
+    const emptyUser = user.username === '';
 
-    console.log(user);
+    let navigate = useNavigate();
+    const logout = () => {
+        navigate('/login');
+        setUser({
+            username: '',
+            password: '',
+            name: '',
+            email: '',
+            gender: '',
+            age: 0,
+            status: '',
+            authorized: false,
+        });
+    }
+
     return (
             <Nav>
                 <NavLink to="/">
                     <h1>Logo</h1>
                 </NavLink>
                 <NavLink to="/">Home</NavLink>
-                 <NavLink to="/groceries">Groceries</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink>
-                { emptyUser ?
-                <NavButton>
-                    <NavButtonLink to="/login">
-                    Log out
-                    </NavButtonLink>
-                </NavButton>
+                <NavLink to="/groceries">Groceries</NavLink>
+                { !emptyUser ?
+                <Button onClick={logout}>
+                    Log Out
+                </Button>
                 :  <NavButton>
                 <NavButtonLink to="/login">
                 Log in

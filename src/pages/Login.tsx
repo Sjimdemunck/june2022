@@ -8,11 +8,12 @@ import UserContext from '../providers/UserProvider';
 import styled from '@emotion/styled';
 import { Box } from '@mui/system';
 import { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-
-interface IFormInputs {
+interface ILoginFormInputProps {
     username: string,
     password: string,
 }
@@ -48,12 +49,23 @@ const ButtonWrapper = styled.div`
     justify-content: center;
     margin-top: 20px;
     `;
-    
+
+// for larger schema's I should create a separate file
+const schema = yup
+  .object()
+  .shape({
+    username: yup.string().required(),
+    password: yup.string().min(4).max(16).required(),
+  })
+
 const Login = () => {
     let navigate = useNavigate();
 
     const { user, setUser } = useContext(UserContext);
-    const {register, handleSubmit, formState: { errors } } = useForm<IFormInputs>();
+    const {register, handleSubmit, formState: { errors } } = useForm<ILoginFormInputProps>({
+        resolver: yupResolver(schema)
+    });
+
     const onSubmit = (data:any) => {
         navigate("/profile");
         setUser({
@@ -67,7 +79,6 @@ const Login = () => {
             authorized: true,
         });
     }
-    
 
     return (
         <Grid container spacing={2}>
@@ -79,19 +90,17 @@ const Login = () => {
                 <Title>Sign in</Title>
                 </IconWrapper>
                 <Grid item>
-                    <form onSubmit={(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField 
-                        variant="outlined"
                         label='Username'
-                        {...register("username", { required: true, maxLength: 20})} 
-                        autoComplete={user.username}
+                        placeholder='Enter Username'
+                        {...register("username", { required: true})} 
                         error={!!errors?.username} 
                         helperText={errors?.username?.message}
-                        placeholder='Enter Username'
-                        fullWidth required
-                        style={{marginBottom: 10}}
-                        />
-                        {errors?.username && <p>{errors.username.message}</p>}
+                        fullWidth 
+                        required
+                        style={{marginBottom: 15}}
+                    />                    
                     <TextField 
                         label='Password'
                         placeholder='Enter Passsword'
@@ -99,8 +108,8 @@ const Login = () => {
                         {...register("password", { required: true})}
                         error={!!errors?.password}
                         helperText={errors?.password?.message}
-                        fullWidth required/>
-                         {errors.password && "Fill in the password"}
+                        fullWidth 
+                        required/>
                     <ButtonWrapper>
                         <Box mb={2} mt={2}>
                             <Button type="submit" variant='contained' fullWidth style={{marginBottom: "5px"}} >Log in</Button>
